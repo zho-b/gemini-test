@@ -187,3 +187,21 @@ function draw() {
 
 // 启动游戏
 draw();
+// 添加触屏控制逻辑 (放到 script.js 底部)
+canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault(); // 阻止滚动
+
+    // 获取触摸点在 Canvas 上的 X 坐标
+    const touchX = e.touches[0].clientX - canvas.offsetLeft;
+
+    // 计算挡板新的位置，并限制在 Canvas 边界内
+    let newPaddleX = touchX - paddle.width / 2;
+
+    if (newPaddleX < 0) {
+        newPaddleX = 0;
+    } else if (newPaddleX + paddle.width > canvasWidth) {
+        newPaddleX = canvasWidth - paddle.width;
+    }
+
+    paddle.x = newPaddleX;
+});
